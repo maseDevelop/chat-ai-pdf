@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "PdAI",
-  description: "Unlock your PDF intelligence. ",
+  description: "Chat with your Data",
 };
 
 export default function RootLayout({
