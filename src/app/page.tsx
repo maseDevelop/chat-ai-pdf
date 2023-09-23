@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { UserButton, auth } from "@clerk/nextjs";
 import Link from "next/link";
 import { LogInIcon } from "lucide-react";
+import { FileUpload } from "@/components/fileUpload";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -18,10 +19,10 @@ export default async function Home() {
             </h1>
             <UserButton afterSignOutUrl="/" />
           </div>
-          <div className="flex mt-6">
+          <div className="flex mt-8">
             {isAuth && <Button>Go to Chats</Button>}
           </div>
-          <p className="font-mono text-lg max-w-xl">
+          <p className="mt-4 font-mono text-lg max-w-xl">
             Use <span className="text-primary font-bold">PdAI </span> to
             interact with your PDF data
           </p>
@@ -31,7 +32,7 @@ export default async function Home() {
           </p>
           <div className="mt-3 w-full ">
             {isAuth ? (
-              <h1>file upload</h1>
+              <FileUpload />
             ) : (
               <Link href={"/sign-in"}>
                 <Button className="font-mono">
