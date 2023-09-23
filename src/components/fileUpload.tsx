@@ -15,7 +15,7 @@ export function FileUpload() {
     "border-dashed border-2 rounded-xl cursor-pointer bg-gray-100 py-8 flex justify-center items-center flex-col m-h-16 transition ease-in-out duration-500";
 
   // Define classes for different background colors
-  const dragAcceptClass = "bg-gray-400";
+  const dragAcceptClass = "bg-gray-300";
   const dragRejectClass = "bg-red-200";
 
   // Generate the dynamic class based on the state
