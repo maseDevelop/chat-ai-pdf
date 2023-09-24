@@ -106,7 +106,7 @@ export function FileUpload() {
         <>
           {isUploadingToS3 || isLoading ? (
             <>
-              <Loader2 className="w-10 h-10" />
+              <Loader2 className="w-10 h-10 animate-spin" />
               <p className="text-primary font-bold font-mono">
                 Creating chat...
               </p>
