@@ -1,31 +1,70 @@
 "use client";
 import { uploadToS3 } from "@/lib/s3";
-import { Inbox } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { Inbox, Loader2 } from "lucide-react";
 import react, { useMemo, useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { ErrorCode, useDropzone } from "react-dropzone";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export function FileUpload() {
-  const [uploadStatus, setUploadStatus] = useState<number>(0);
-  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [isUploadingToS3, setIsUploadingToS3] = useState<boolean>(false);
+  const { mutate, isLoading } = useMutation({
+    mutationFn: async ({
+      file_key,
+      file_name,
+    }: {
+      file_key: string;
+      file_name: string;
+    }) => {
+      const response = await axios.post("/api/create-chat", {
+        file_key,
+        file_name,
+      });
+      return response.data;
+    },
+  });
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
     useDropzone({
       accept: { "application/pdf": [".pdf"] },
       maxFiles: 1,
       onDrop: async (acceptedFiles) => {
         console.log(acceptedFiles);
+        if (acceptedFiles.length === 0) return;
         const file = acceptedFiles[0]; //only allow one file at a time
         if (file.size > 10 * 1024 * 1024) {
-          alert("Please upload a smaller file");
+          toast.error("File to large");
           return;
         }
         try {
-          setIsUploading(true);
-          const data = await uploadToS3(file, setUploadStatus);
-          setIsUploading(false);
+          setIsUploadingToS3(true);
+          const data = await uploadToS3(file);
+          console.log("data", data);
+          if (!data?.file_key || !data.file_name) {
+            toast.error("Opps something went wrong!");
+            return;
+          }
+
+          mutate(data, {
+            onSuccess(data) {},
+            onError(error, variables, context) {
+              toast.error("Error creating chat");
+              console.error(error);
+            },
+          });
         } catch (error) {
-          setIsUploading(false);
-          console.error("Opps something went wrong");
+          toast.error("Opps something went wrong!");
           console.error(error);
+        } finally {
+          setIsUploadingToS3(false);
+        }
+      },
+      onDropRejected: (fileRejections) => {
+        const errorCodes = fileRejections[0].errors.map((e) => e.code);
+        if (errorCodes.includes(ErrorCode.FileInvalidType)) {
+          toast.error("Invalid file type!");
+        } else {
+          toast.error("Opps something went wrong!");
         }
       },
     });
@@ -42,19 +81,18 @@ export function FileUpload() {
   const dropzoneClass = useMemo(() => {
     return `
       ${baseClass}
-      ${isUploading ? isUploadingClass : ""}
-      ${isUploading ? "" : isDragAccept ? dragAcceptClass : ""}
-      ${isUploading ? "" : isDragReject ? dragRejectClass : ""}
+      ${isUploadingToS3 ? isUploadingClass : ""}
+      ${isUploadingToS3 ? "" : isDragAccept ? dragAcceptClass : ""}
+      ${isUploadingToS3 ? "" : isDragReject ? dragRejectClass : ""}
     `;
   }, [
-    uploadStatus,
     baseClass,
     dragAcceptClass,
     dragRejectClass,
     isFocused,
     isDragAccept,
     isDragReject,
-    isUploading,
+    isUploadingToS3,
   ]);
 
   return (
@@ -66,25 +104,28 @@ export function FileUpload() {
       >
         <input {...getInputProps()} />
         <>
-          <Inbox className="w-10 h-10 " />
-
-          {isUploading && (
-            <p className="text-primary font-bold font-mono">
-              Uploading.... {uploadStatus}%
-            </p>
+          {isUploadingToS3 || isLoading ? (
+            <>
+              <Loader2 className="w-10 h-10" />
+              <p className="text-primary font-bold font-mono">
+                Creating chat...
+              </p>
+            </>
+          ) : (
+            <>
+              <Inbox className="w-10 h-10 " />
+              {isDragReject ? (
+                <p className="text-primary font-bold font-mono">
+                  Please upload a valid <span className="text-bold">PDF</span>{" "}
+                  file
+                </p>
+              ) : (
+                <p className="text-primary font-bold font-mono">
+                  Drop your PDF here
+                </p>
+              )}
+            </>
           )}
-
-          {!isUploading &&
-            (isDragReject ? (
-              <p className="text-primary font-bold font-mono">
-                Please upload a valid <span className="text-bold">PDF</span>{" "}
-                file
-              </p>
-            ) : (
-              <p className="text-primary font-bold font-mono">
-                Drop your PDF here
-              </p>
-            ))}
         </>
       </div>
     </div>

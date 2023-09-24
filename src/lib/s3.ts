@@ -1,9 +1,6 @@
 import AWS from "aws-sdk";
 
-export async function uploadToS3(
-  file: File,
-  setUploadStatus: React.Dispatch<React.SetStateAction<number>>
-) {
+export async function uploadToS3(file: File) {
   try {
     AWS.config.update({
       accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID,
@@ -34,7 +31,6 @@ export async function uploadToS3(
         );
 
         console.log("Uploading to s3...", progress);
-        setUploadStatus(progress);
       })
       .promise();
 
