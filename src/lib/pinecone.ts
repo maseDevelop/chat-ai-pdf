@@ -13,3 +13,5 @@ type PDFPage = {
     loc: { pageNumber: number };
   };
 };
+
+export async function loadS3IntoPinecone(fileKey: string) {}
