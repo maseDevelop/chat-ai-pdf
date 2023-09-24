@@ -1,4 +1,4 @@
-import AWS from "aws-sdk";
+import { S3 } from "@aws-sdk/client-s3";
 
 export async function uploadToS3(file: File) {
   try {
@@ -7,7 +7,7 @@ export async function uploadToS3(file: File) {
       secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY,
     });
 
-    const s3 = new AWS.S3({
+    const s3 = new S3({
       params: {
         Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
       },

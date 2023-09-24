@@ -30,7 +30,7 @@ export function FileUpload() {
       maxFiles: 1,
       onDrop: async (acceptedFiles) => {
         console.log(acceptedFiles);
-        if (acceptedFiles.length === 0) return;
+        if (acceptedFiles.length !== 0) return;
         const file = acceptedFiles[0]; //only allow one file at a time
         if (file.size > 10 * 1024 * 1024) {
           toast.error("File to large");
