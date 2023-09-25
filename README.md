@@ -1,4 +1,6 @@
-# PdAI
+![Example Image](./images/Logo-PdAI.jpeg)
+
+Chat with your Financial Data
 
 Based on this cool tutorial - https://www.youtube.com/watch?v=bZFedu-0emE
 
