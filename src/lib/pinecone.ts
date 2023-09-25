@@ -14,4 +14,6 @@ type PDFPage = {
   };
 };
 
-export async function loadS3IntoPinecone(fileKey: string) {}
+export async function loadS3IntoPinecone(fileKey: string) {
+  //Obtain the PDF and read the text
+}
