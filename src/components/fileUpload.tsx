@@ -6,8 +6,10 @@ import react, { useMemo, useState } from "react";
 import { ErrorCode, useDropzone } from "react-dropzone";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export function FileUpload() {
+  const router = useRouter();
   const [isUploadingToS3, setIsUploadingToS3] = useState<boolean>(false);
 
   const { mutate, isLoading } = useMutation({
@@ -47,9 +49,9 @@ export function FileUpload() {
           }
           // Send data to pinecone
           mutate(data, {
-            onSuccess(data) {
-              console.log(data);
-              // toast.success(data.message);
+            onSuccess({ chat_id }) {
+              toast.success("Chat has been created");
+              router.push(`chat/${chat_id}`);
             },
             onError(error, variables, context) {
               toast.error("Error creating chat");

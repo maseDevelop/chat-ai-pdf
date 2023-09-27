@@ -1,4 +1,10 @@
-import { Pinecone, Vector } from "@pinecone-database/pinecone";
+import {
+  Pinecone,
+  Vector,
+  utils as PineconeUtils,
+  PineconeRecord,
+  RecordMetadata,
+} from "@pinecone-database/pinecone";
 import { downloadFromS3 } from "./s3-server";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import {
@@ -7,6 +13,7 @@ import {
 } from "@pinecone-database/doc-splitter";
 import { getEmbeddings } from "./embeddings";
 import md5 from "md5";
+import { convertToAscii } from "./utils";
 
 export const getPineconeClient = () => {
   return new Pinecone({
@@ -45,8 +52,14 @@ export async function loadS3IntoPinecone(fileKey: string) {
 
   // Upload vectors to pincone
   const client = await getPineconeClient();
+  const pineconeIndex = await client.index("chat-ai-pdf");
 
-  return pages;
+  console.log("Inserting vectors into pinecone");
+
+  const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
+  namespace.upsert(vectors);
+
+  return documents[0];
 }
 
 export async function embedDocuments(doc: Document) {
@@ -57,7 +70,7 @@ export async function embedDocuments(doc: Document) {
       id: hash,
       values: embeddings,
       metadata: { text: doc.metadata.text, pageNumber: doc.metadata.pageNumbe },
-    } as Vector;
+    } as PineconeRecord<RecordMetadata>;
   } catch (error) {
     console.log("error embedding documents", error);
     throw error;
