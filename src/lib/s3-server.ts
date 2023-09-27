@@ -1,5 +1,12 @@
-import { S3 } from "@aws-sdk/client-s3";
+import {
+  GetObjectAclCommandInput,
+  GetObjectAclCommandOutput,
+  GetObjectCommandOutput,
+  S3,
+} from "@aws-sdk/client-s3";
+import { rejects } from "assert";
 import fs from "fs";
+import { Readable } from "stream";
 
 export async function downloadFromS3(file_key: string) {
   try {
@@ -16,24 +23,37 @@ export async function downloadFromS3(file_key: string) {
       Key: file_key,
     };
 
-    const obj = s3.getObject(params);
+    const file_name = `tmp/pdf-${Date.now()}.pdf`;
 
-    //Write to system
-    const file_name = `/tmp/pdf-${Date.now()}.pdf`;
-
-    // @ts-ignore
-    if (obj.body instanceof require("stream").Readable) {
-      // AWS-SDK v3 has some issues with their typescript definitions, but this works
-      // https://github.com/aws/aws-sdk-js-v3/issues/843
-      //open the writable stream and write the file
-      const file = fs.createWriteStream(file_name);
-      file.on("open", function (fd) {
-        // @ts-ignore
-        obj.Body?.pipe(file).on("finish", () => {
-          return Promise.resolve(file_name);
-        });
+    // Wrap the AWS SDK operation in a Promise
+    const data = await new Promise((resolve, reject) => {
+      s3.getObject(params, (err: any, data: unknown) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
       });
-      // obj.Body?.pipe(fs.createWriteStream(file_name));
+    });
+
+    //@ts-ignore
+    if (data && data.Body instanceof Readable) {
+      const fileWrite = fs.createWriteStream(file_name);
+
+      await new Promise((resolve, reject) => {
+        //@ts-ignore
+        data.Body?.pipe(fileWrite)
+          .on("finish", () => {
+            console.log("File download complete.");
+            resolve(file_name);
+          })
+          .on("error", (err: any) => {
+            console.error("Error downloading file:", err);
+            reject(err);
+          });
+      });
+
+      return file_name; // Return the file name when download is complete
     }
   } catch (error) {
     console.log(error);

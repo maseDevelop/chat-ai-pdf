@@ -1,4 +1,3 @@
-import AWS from "aws-sdk";
 import { PutObjectCommandOutput, S3 } from "@aws-sdk/client-s3";
 
 export async function uploadToS3(

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { UserButton, auth } from "@clerk/nextjs";
+import { ClerkLoading, UserButton, auth } from "@clerk/nextjs";
 import Link from "next/link";
-import { LogInIcon } from "lucide-react";
+import { Loader2, LogInIcon } from "lucide-react";
 import { FileUpload } from "@/components/FileUpload";
 
 export default async function Home() {
@@ -17,6 +17,9 @@ export default async function Home() {
             <h1 className="text-primary font-mono mr-3 text-5xl font-semibold">
               Chat with your Data
             </h1>
+            <ClerkLoading>
+              <Loader2 className="w-5 h-5 animate-spin" />
+            </ClerkLoading>
             <UserButton afterSignOutUrl="/" />
           </div>
           <div className="flex mt-8">

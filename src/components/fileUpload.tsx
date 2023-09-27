@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 
 export function FileUpload() {
   const [isUploadingToS3, setIsUploadingToS3] = useState<boolean>(false);
+
   const { mutate, isLoading } = useMutation({
     mutationFn: async ({
       file_key,
@@ -24,14 +25,15 @@ export function FileUpload() {
       return response.data;
     },
   });
+
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
     useDropzone({
       accept: { "application/pdf": [".pdf"] },
       maxFiles: 1,
       onDrop: async (acceptedFiles) => {
         console.log(acceptedFiles);
-        if (acceptedFiles.length !== 0) return;
         const file = acceptedFiles[0]; //only allow one file at a time
+        if (!file?.size) return;
         if (file.size > 10 * 1024 * 1024) {
           toast.error("File to large");
           return;
@@ -39,14 +41,16 @@ export function FileUpload() {
         try {
           setIsUploadingToS3(true);
           const data = await uploadToS3(file);
-          console.log("data", data);
           if (!data?.file_key || !data.file_name) {
             toast.error("Opps something went wrong!");
             return;
           }
-
+          // Send data to pinecone
           mutate(data, {
-            onSuccess(data) {},
+            onSuccess(data) {
+              console.log(data);
+              // toast.success(data.message);
+            },
             onError(error, variables, context) {
               toast.error("Error creating chat");
               console.error(error);

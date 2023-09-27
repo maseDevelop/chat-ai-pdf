@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "export NODE_OPTIONS='--max-old-space-size=4096' && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.418.0",
+    "@aws-sdk/signature-v4-multi-region": "^3.418.0",
     "@clerk/nextjs": "^4.24.0",
     "@neondatabase/serverless": "^0.6.0",
     "@pinecone-database/pinecone": "^1.0.1",
@@ -21,7 +22,7 @@
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.16",
-    "aws-sdk": "^2.1463.0",
+    "aws-crt": "^1.18.0",
     "axios": "^1.5.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -33,6 +34,7 @@
     "langchain": "^0.0.153",
     "lucide-react": "^0.279.0",
     "next": "13.5.2",
+    "pdf-parse": "^1.1.1",
     "postcss": "8.4.30",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -43,5 +45,8 @@
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-gradients": "^3.0.0",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "encoding": "^0.1.13"
   }
 }
