@@ -34,14 +34,14 @@ export default async function ChatPage({ params: { chatId } }: ChatPageProps) {
   const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
 
   return (
-    <div className="flex max-h-screen overflow-scroll">
-      <div className="flex w-full max-h-screen overflow-scroll">
+    <div className="flex max-h-screen overflow-scroll overflow-y-hidden">
+      <div className="flex w-full max-h-screen">
         {/* Chat Sidebar */}
         <div className="flex-[1] max-w-xs">
           {<ChatSideBar chats={_chats} chatId={parseInt(chatId)} />}
         </div>
         {/* PDF Viewer */}
-        <div className="max-h-screen p-4 overflow-x-hidden overflow-y-auto flex-[5] ">
+        <div className="max-h-screen p-4  overflow-scroll flex-[5] ">
           <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
         </div>
         {/* Chat Component */}
