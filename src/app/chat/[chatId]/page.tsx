@@ -15,8 +15,6 @@ type ChatPageProps = {
 export default async function ChatPage({ params: { chatId } }: ChatPageProps) {
   const { userId } = await auth();
 
-  console.log("who are you ");
-
   if (!userId) {
     return redirect("/sign-in");
   }

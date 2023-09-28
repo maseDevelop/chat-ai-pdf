@@ -44,10 +44,11 @@ export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
         ))}
       </div>
       <div className="flex flex-row w-full items-center absolute bottom-10 pt-5">
-        <UserButton afterSignOutUrl="/" />
-        <p className="ml-4 font-mono text-md truncate">
+        <UserButton afterSignOutUrl="/" />{" "}
+        {/* Include the UserButton component here */}
+        <div className="ml-4 font-mono text-md truncate">
           {`Hello ${user?.firstName}`}
-        </p>
+        </div>
       </div>
     </div>
   );
