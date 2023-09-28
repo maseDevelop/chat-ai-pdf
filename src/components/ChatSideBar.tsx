@@ -43,7 +43,7 @@ export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
           </Link>
         ))}
       </div>
-      <div className="flex flex-row w-full items-center absolute bottom-10 pt-5">
+      <div className="flex flex-row w-full items-center absolute bottom-8 pt-5">
         <UserButton afterSignOutUrl="/" />{" "}
         {/* Include the UserButton component here */}
         <div className="ml-4 font-mono text-sm truncate">
