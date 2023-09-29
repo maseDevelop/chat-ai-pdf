@@ -3,9 +3,24 @@ import react from "react";
 import { DrizzleChat } from "@/lib/db/schema";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { Loader2, MessageCircle, PlusCircle } from "lucide-react";
+import {
+  MessageCircle,
+  PanelLeft,
+  PanelLeftClose,
+  PanelLeftOpen,
+  PlusCircle,
+  User2,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ClerkLoading, UserButton, useUser } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import { TooltipArrow } from "@radix-ui/react-tooltip";
+import React from "react";
 
 type ChatSideBarProps = {
   chats: DrizzleChat[];
@@ -13,15 +28,37 @@ type ChatSideBarProps = {
 };
 
 export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
+  const [isChatSidebarVisible, setIsChatSidebarVisible] = React.useState(true);
   const { user } = useUser();
-  return (
-    <div className="w-full h-screen p-4 text-gray-200 bg-gray-900">
-      <Link href={"/"}>
-        <Button className="w-full font-mono border-dashed hover:bg-blue-600 border-white border transition-transform transform hover:scale-105 ">
-          <PlusCircle className="mr-2 w-4 h-4" />
-          New Chat
-        </Button>
-      </Link>
+  return isChatSidebarVisible ? (
+    // flex child in parent component
+    <div className="flex-[1] max-w-xs w-full h-screen p-4 text-gray-200 bg-gray-900">
+      <div className="grid grid-cols-4 gap-2">
+        <Link className="col-span-3 " href={"/"}>
+          <Button className="w-full justify-items-start font-mono border-dashed hover:bg-blue-600 border-white border transition-transform transform hover:scale-105">
+            <PlusCircle className="mr-2 w-4 h-4" />
+            New Chat
+          </Button>
+        </Link>
+        <TooltipProvider delayDuration={0}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={() => setIsChatSidebarVisible(!isChatSidebarVisible)}
+                className=" col-span-1 font-mono border-dashed hover:bg-blue-600 border-white border transition-transform transform hover:scale-105 "
+              >
+                <PanelLeftClose className="w-6 h-6" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent
+              side="right"
+              className="ml-5 text-gray-200 bg-gray-900"
+            >
+              <p className="font-mono ">Close sidebar</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
 
       <div className="flex max-h-screen pb-20 flex-col gap-2 mt-4 overflow-x-hidden overflow-y-auto">
         {chats.map((chat) => (
@@ -43,13 +80,42 @@ export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
           </Link>
         ))}
       </div>
-      <div className="flex flex-row w-full items-center absolute bottom-8 pt-5">
-        <UserButton afterSignOutUrl="/" />{" "}
-        {/* Include the UserButton component here */}
-        <div className="ml-4 font-mono text-sm truncate">
-          {`Hello ${user?.firstName}`}
+      <div>
+        <div className="flex flex-col items-center absolute bottom-11 border-t gap-4  ">
+          <Link href={"/"}>
+            <div className="flex flex-row items-center w-full text-xs font-mono border-dashed transition-transform transform hover:scale-110 hover:text-white pt-4">
+              <User2 className="mr-2 w-4 h-4" />
+              Upgrade to plus
+            </div>
+          </Link>
+          <div className="flex flex-row items-center  ">
+            <UserButton afterSignOutUrl="/" />{" "}
+            {/* Include the UserButton component here */}
+            <div className="ml-4 font-mono text-sm truncate">
+              {user?.primaryEmailAddress?.toString() || "User"}
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+  ) : (
+    <div className="absolute top-1 left-1 p-4 z-50">
+      <TooltipProvider delayDuration={0}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <PanelLeftClose
+              onClick={() => setIsChatSidebarVisible(!isChatSidebarVisible)}
+              className=" hover:cursor-pointer w-6 h-6"
+            />
+          </TooltipTrigger>
+          <TooltipContent
+            side="right"
+            className="mt-2 ml-5 text-gray-200 bg-gray-900"
+          >
+            <p className="font-mono ">Open sidebar</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </div>
   );
 }
