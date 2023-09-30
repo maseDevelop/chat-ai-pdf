@@ -14,7 +14,9 @@ export async function uploadToS3(
         region: process.env.NEXT_PUBLIC_AWS_REGION,
       });
 
-      const file_key = `uploads/${uuid4()}}`;
+      const file_key = `uploads/${uuid4()}`;
+
+      console.log(file_key);
 
       const params = {
         Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,

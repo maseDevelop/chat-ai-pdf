@@ -34,6 +34,8 @@ export default async function ChatPage({ params: { chatId } }: ChatPageProps) {
   // Get current chat
   const currentChat = _chats.find((chat) => chat.id === chatId);
 
+  console.log("server", chatId);
+
   return (
     <div className="flex max-h-screen overflow-scroll overflow-y-hidden">
       <div className="flex w-full max-h-screen">
@@ -45,7 +47,7 @@ export default async function ChatPage({ params: { chatId } }: ChatPageProps) {
         </div>
         {/* Chat Component */}
         <div className="flex-[3] border-l-4 border-l-slate-200">
-          <ChatComponent chatId={parseInt(chatId)} />
+          <ChatComponent chatId={chatId} />
         </div>
       </div>
     </div>

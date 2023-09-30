@@ -1,9 +1,6 @@
 import {
-  PgTimestampBuilder,
-  integer,
   pgEnum,
   pgTable,
-  serial,
   text,
   timestamp,
   varchar,
@@ -13,7 +10,7 @@ import {
 export const userSystemEnum = pgEnum("user_system_enum", ["system", "user"]);
 
 export const chats = pgTable("chats", {
-  id: uuid("uuid4").defaultRandom().primaryKey(),
+  id: uuid("id").defaultRandom().primaryKey(),
   pdfName: text("pdf_name").notNull(),
   pdfUrl: text("pdf_url").notNull(),
   createdAt: timestamp("created_at").notNull(),
@@ -24,8 +21,8 @@ export const chats = pgTable("chats", {
 export type DrizzleChat = typeof chats.$inferSelect;
 
 export const messages = pgTable("messages", {
-  id: uuid("uuid4").defaultRandom().primaryKey(),
-  chatId: uuid("uuid4")
+  id: uuid("id").defaultRandom().primaryKey(),
+  chatId: uuid("chatId")
     .references(() => chats.id)
     .notNull(),
   content: text("content").notNull(),

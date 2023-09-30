@@ -13,15 +13,14 @@ export async function getMatchesFromEmbeddings(
     });
     console.log("have pinecone client");
     const pineconeIndex = await client.index(process.env.PINECONE_INDEX!);
-    // console.log("got pinecone index", pineconeIndex);
     const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
-    console.log("namespace", namespace);
 
     const queryResult = await namespace.query({
       topK: 5,
       vector: embeddings,
       includeMetadata: true,
     });
+
     return queryResult.matches || [];
   } catch (error) {
     console.log("Error querying embeddings", error);

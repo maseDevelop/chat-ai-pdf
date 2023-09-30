@@ -10,9 +10,10 @@ import { Input } from "./ui/input";
 import { MessageList } from "./MessageList";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 
-type ChatComponentProps = { chatId: number };
+type ChatComponentProps = { chatId: string };
 
 export function ChatComponent({ chatId }: ChatComponentProps) {
+  console.log("chatId chat component", chatId);
   const { data, isLoading } = useQuery({
     queryKey: ["chat", chatId],
     queryFn: async () => {

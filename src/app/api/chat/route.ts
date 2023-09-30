@@ -11,11 +11,14 @@ export const runtime = "edge";
 const config = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
+
 const openai = new OpenAIApi(config);
 
 export async function POST(req: Request) {
   try {
-    const { messages, chatId } = await req.json();
+    const body = await req.json();
+
+    const { messages, chatId } = body;
 
     console.log("messages", messages);
     console.log("chatId", chatId);
@@ -56,6 +59,7 @@ export async function POST(req: Request) {
       ],
       stream: true,
     });
+
     const stream = OpenAIStream(response, {
       onStart: async () => {
         // Save user message
@@ -74,6 +78,13 @@ export async function POST(req: Request) {
         });
       },
     });
+
     return new StreamingTextResponse(stream);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
 }
