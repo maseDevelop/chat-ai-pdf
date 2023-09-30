@@ -44,7 +44,7 @@ export function ChatComponent({ chatId }: ChatComponentProps) {
 
   return (
     <div
-      className="relative max-h-screen overflow-scroll overflow-x-hidden"
+      className="relative max-h-screen overflow-scroll overflow-x-hidden  scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-gray-100"
       id="message-container"
     >
       <div className="sticky top-0 inset-x-0 p-2 bg-white h-fit">
@@ -63,9 +63,9 @@ export function ChatComponent({ chatId }: ChatComponentProps) {
 
       <form
         onSubmit={handleSubmit}
-        className="sticky bottom-0 inset-x-0 px-2 py-4 bg-white"
+        className="sticky bottom-0 inset-x-0 px-2 py-4 pt-10 bg-white"
       >
-        <div className="flex ">
+        <div className="flex">
           <Input
             value={input}
             onChange={handleInputChange}

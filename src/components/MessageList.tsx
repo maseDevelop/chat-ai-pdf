@@ -19,7 +19,7 @@ export function MessageList({ isLoading, messages }: MessageListProps) {
   }
   if (!messages) return <></>;
   return (
-    <div className="flex flex-col gap-2 px-4">
+    <div className="flex flex-col gap-2 px-4 ">
       {messages.map((message) => {
         return (
           <div

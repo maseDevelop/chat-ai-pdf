@@ -37,7 +37,7 @@ export default async function ChatPage({ params: { chatId } }: ChatPageProps) {
   console.log("server", chatId);
 
   return (
-    <div className="flex max-h-screen overflow-scroll overflow-y-hidden">
+    <div id="this-it" className="flex max-h-screen">
       <div className="flex w-full max-h-screen">
         {/* Chat Sidebar */}
         <ChatSideBar chats={_chats} chatId={chatId} />
@@ -46,7 +46,7 @@ export default async function ChatPage({ params: { chatId } }: ChatPageProps) {
           <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
         </div>
         {/* Chat Component */}
-        <div className="flex-[3] border-l-4 border-l-slate-200">
+        <div className="flex-[3] border-l-4 border-l-slate-200 ">
           <ChatComponent chatId={chatId} />
         </div>
       </div>
