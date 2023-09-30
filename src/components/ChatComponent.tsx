@@ -45,7 +45,7 @@ export function ChatComponent({ chatId }: ChatComponentProps) {
 
   return (
     <div
-      className="relative max-h-screen overflow-scroll overflow-x-hidden  scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-gray-100"
+      className="relative max-h-screen overflow-scroll overflow-x-hidden  scrollbar-thin scrollbar-thumb-primary scrollbar-track-gray-100"
       id="message-container"
     >
       <div className="sticky top-0 inset-x-0 p-2 bg-white h-fit">
@@ -73,7 +73,7 @@ export function ChatComponent({ chatId }: ChatComponentProps) {
             placeholder="Ask a question..."
             className="w-full font-mono"
           />
-          <Button className="hover:bg-blue-600 bg-gray-900 ml-2">
+          <Button className="hover:bg-secondary hover:text-primary bg-primary ml-2">
             <Send className="h-4 w-4" />
           </Button>
         </div>
