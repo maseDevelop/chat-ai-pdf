@@ -27,18 +27,18 @@ export default async function ChatPage({ params: { chatId } }: ChatPageProps) {
     return redirect("/");
   }
 
-  if (!_chats.find((chat) => chat.id === parseInt(chatId))) {
+  if (!_chats.find((chat) => chat.id === chatId)) {
     return redirect("/");
   }
 
   // Get current chat
-  const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
+  const currentChat = _chats.find((chat) => chat.id === chatId);
 
   return (
     <div className="flex max-h-screen overflow-scroll overflow-y-hidden">
       <div className="flex w-full max-h-screen">
         {/* Chat Sidebar */}
-        <ChatSideBar chats={_chats} chatId={parseInt(chatId)} />
+        <ChatSideBar chats={_chats} chatId={chatId} />
         {/* PDF Viewer */}
         <div className="max-h-screen min-h-screen p-4 border border-gray-800 overflow-scroll flex-[5] ">
           <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />

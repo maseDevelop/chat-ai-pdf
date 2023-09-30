@@ -24,7 +24,7 @@ import React from "react";
 
 type ChatSideBarProps = {
   chats: DrizzleChat[];
-  chatId: number;
+  chatId: string;
 };
 
 export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {

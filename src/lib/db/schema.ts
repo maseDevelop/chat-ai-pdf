@@ -7,12 +7,13 @@ import {
   text,
   timestamp,
   varchar,
+  uuid,
 } from "drizzle-orm/pg-core";
 
 export const userSystemEnum = pgEnum("user_system_enum", ["system", "user"]);
 
 export const chats = pgTable("chats", {
-  id: serial("id").primaryKey(),
+  id: uuid("uuid4").defaultRandom().primaryKey(),
   pdfName: text("pdf_name").notNull(),
   pdfUrl: text("pdf_url").notNull(),
   createdAt: timestamp("created_at").notNull(),
@@ -23,7 +24,7 @@ export const chats = pgTable("chats", {
 export type DrizzleChat = typeof chats.$inferSelect;
 
 export const messages = pgTable("messages", {
-  id: serial("id").primaryKey(),
+  id: uuid("uuid4").defaultRandom().primaryKey(),
   chatId: integer("chat_id")
     .references(() => chats.id)
     .notNull(),
