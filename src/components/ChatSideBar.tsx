@@ -32,8 +32,8 @@ export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
   const { user } = useUser();
   return isChatSidebarVisible ? (
     // flex child in parent component
-    <div className="flex-[1] max-w-xs w-full h-screen p-4 text-gray-200 bg-gray-900">
-      <div className="grid grid-cols-4 gap-2">
+    <div className="flex-[1] max-w-xs w-full h-screen pl-4 pt-4 text-gray-200 bg-gray-900 ">
+      <div className="grid grid-cols-4 gap-2 pr-4">
         <Link className="col-span-3 " href={"/"}>
           <Button className="w-full justify-items-start font-mono border-dashed hover:bg-blue-600 border-white border transition-transform transform hover:scale-105">
             <PlusCircle className="mr-2 w-4 h-4" />
@@ -60,35 +60,37 @@ export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
         </TooltipProvider>
       </div>
 
-      <div className="flex max-h-screen pb-20 flex-col gap-2 mt-4 overflow-x-hidden overflow-y-auto">
-        {chats.map((chat) => (
-          <Link key={chat.id} href={`/chat/${chat.id}`}>
-            <div
-              className={cn(
-                "rounded-lg p-3 text-slate-300 flex items-center hover:bg-gray-800 border-white",
-                {
-                  "bg-blue-600 text-white": chat.id === chatId,
-                  "hover:text-white ": chat.id !== chatId,
-                }
-              )}
-            >
-              <MessageCircle className="mr-2" />
-              <p className="w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis font-mono">
-                {chat.pdfName}
-              </p>
-            </div>
-          </Link>
-        ))}
+      <div className="flex max-h-screen pb-20 flex-col gap-2 mt-4 overflow-x-hidden overflow-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100">
+        <div>
+          {chats.map((chat) => (
+            <Link key={chat.id} href={`/chat/${chat.id}`}>
+              <div
+                className={cn(
+                  "rounded-lg p-3 text-slate-300 flex items-center hover:bg-gray-800 border-white",
+                  {
+                    "bg-blue-600 text-white": chat.id === chatId,
+                    "hover:text-white ": chat.id !== chatId,
+                  }
+                )}
+              >
+                <MessageCircle className="mr-2" />
+                <p className="w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis font-mono">
+                  {chat.pdfName}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-      <div>
-        <div className="flex flex-col items-center absolute bottom-11 border-t gap-4  ">
+      <div className="sticky bottom-0 border-t gap-4 mt-2 bg-gray-900 h-35 ">
+        <div className="flex flex-col items-center">
           <Link href={"/"}>
-            <div className="flex flex-row items-center w-full text-xs font-mono border-dashed transition-transform transform hover:scale-110 hover:text-white pt-4">
+            <div className="pb-3 flex flex-row items-center w-full text-xs font-mono border-dashed transition-transform transform hover:scale-110 hover:text-white pt-4">
               <User2 className="mr-2 w-4 h-4" />
               Upgrade to plus
             </div>
           </Link>
-          <div className="flex flex-row items-center  ">
+          <div className="flex flex-row items-center mb-5 ">
             <UserButton afterSignOutUrl="/" />{" "}
             {/* Include the UserButton component here */}
             <div className="ml-4 font-mono text-sm truncate">
@@ -99,13 +101,13 @@ export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
       </div>
     </div>
   ) : (
-    <div className="absolute top-1 left-1 p-4 z-50">
+    <div className="sticky p-4 z-50 flex flex-col items-center">
       <TooltipProvider delayDuration={0}>
         <Tooltip>
           <TooltipTrigger asChild>
             <PanelLeftClose
               onClick={() => setIsChatSidebarVisible(!isChatSidebarVisible)}
-              className=" hover:cursor-pointer w-6 h-6"
+              className="w-8 h-8 hover:cursor-pointer border-white border transition-transform transform hover:scale-105 "
             />
           </TooltipTrigger>
           <TooltipContent
@@ -116,6 +118,9 @@ export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
+      <div className="mt-2">
+        <UserButton afterSignOutUrl="/" />{" "}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { Loader2 } from "lucide-react";
+import { Frown, Loader2 } from "lucide-react";
 import React from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
@@ -11,18 +11,15 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url
 ).toString();
 
-type Props = { pdf_url: string };
+type PDFViewerProps = { pdf_url: string };
 
 const options = {
   cMapUrl: "/cmaps/",
   standardFontDataUrl: "/standard_fonts/",
 };
 
-type PDFFile = string | File | null;
-
-export function PDFViewer({ pdf_url }: Props) {
+export function PDFViewer({ pdf_url }: PDFViewerProps) {
   const [numPages, setNumPages] = React.useState(0);
-  const [file, setFile] = React.useState<PDFFile>("");
 
   function onDocumentLoadSuccess({
     numPages: nextNumPages,
@@ -32,15 +29,27 @@ export function PDFViewer({ pdf_url }: Props) {
 
   return (
     <Document
-      file={pdf_url}
+      file={`${pdf_url}`}
+      error={
+        <div className="max-h-screen min-h-screen p-4  ">
+          <div className="flex flex-col items-center relative top-1/2">
+            <Frown className="w-10 h-10 animate-spin" />
+            <h1 className="text-primary font-mono text-xl font-semibold">
+              Failed to Load PDF
+            </h1>
+          </div>
+        </div>
+      }
       options={options}
       onLoadSuccess={onDocumentLoadSuccess}
       loading={
-        <div className="flex flex-col items-center relative left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Loader2 className="w-10 h-10 animate-spin" />
-          <h1 className="text-primary font-mono  text-xl font-semibold">
-            Loading...
-          </h1>
+        <div className="max-h-screen min-h-screen p-4  ">
+          <div className="flex flex-col items-center relative bottom-1/2">
+            <Loader2 className="w-10 h-10 animate-spin" />
+            <h1 className="text-primary font-mono text-xl font-semibold">
+              Loading...
+            </h1>
+          </div>
         </div>
       }
     >

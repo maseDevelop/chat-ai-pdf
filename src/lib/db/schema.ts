@@ -24,10 +24,10 @@ export type DrizzleChat = typeof chats.$inferSelect;
 
 export const messages = pgTable("messages", {
   id: serial("id").primaryKey(),
-  chatsId: integer("chat_id")
+  chatId: integer("chat_id")
     .references(() => chats.id)
     .notNull(),
   content: text("content").notNull(),
-  createdAt: text("created_at").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
   role: userSystemEnum("role").notNull(),
 });

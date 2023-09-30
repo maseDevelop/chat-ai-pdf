@@ -5,6 +5,7 @@ import { SignUp, auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { PDFViewer } from "@/components/PDFViewer";
+import { ChatComponent } from "@/components/ChatComponent";
 
 type ChatPageProps = {
   params: {
@@ -37,16 +38,14 @@ export default async function ChatPage({ params: { chatId } }: ChatPageProps) {
     <div className="flex max-h-screen overflow-scroll overflow-y-hidden">
       <div className="flex w-full max-h-screen">
         {/* Chat Sidebar */}
-        <div className="">
-          {<ChatSideBar chats={_chats} chatId={parseInt(chatId)} />}
-        </div>
+        <ChatSideBar chats={_chats} chatId={parseInt(chatId)} />
         {/* PDF Viewer */}
-        <div className="max-h-screen p-4  overflow-scroll flex-[5] ">
+        <div className="max-h-screen min-h-screen p-4 border border-gray-800 overflow-scroll flex-[5] ">
           <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
         </div>
         {/* Chat Component */}
         <div className="flex-[3] border-l-4 border-l-slate-200">
-          {/* <ChatComponent/> */}
+          <ChatComponent chatId={parseInt(chatId)} />
         </div>
       </div>
     </div>
