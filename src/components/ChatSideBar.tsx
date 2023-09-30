@@ -31,7 +31,7 @@ export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
   const { user } = useUser();
   return isChatSidebarVisible ? (
     // flex child in parent component
-    <div className="flex-[1] max-w-xs w-full h-screen pl-4 pt-4 text-gray-200 bg-gray-900 ">
+    <div className="flex-[1] max-w-xs flex flex-col w-full h-screen pl-4 pt-4 text-gray-200 bg-gray-900 ">
       <div className="grid grid-cols-4 gap-2 pr-4">
         <Link className="col-span-3 " href={"/"}>
           <Button className="w-full justify-items-start font-mono border-dashed hover:bg-blue-600 border-white border transition-transform transform hover:scale-105">
@@ -59,7 +59,7 @@ export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
         </TooltipProvider>
       </div>
 
-      <div className="flex max-h-screen pb-20 flex-col gap-2 mt-4 overflow-x-hidden overflow-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100">
+      <div className="flex max-h-screen pb-20 flex-col gap-2 mt-4 overflow-x-hidden overflow-scroll scrollbar-thin scrollbar-thumb-gray-100 scrollbar-track-gray-900">
         <div>
           {chats.map((chat) => (
             <Link key={chat.id} href={`/chat/${chat.id}`}>
@@ -81,7 +81,10 @@ export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
           ))}
         </div>
       </div>
-      <div className="sticky bottom-0 border-t gap-4 mt-2 bg-gray-900 h-35 ">
+      <div
+        id="footer"
+        className="border-t gap-4 mt-auto mr-4 bg-gray-900 h-35 "
+      >
         <div className="flex flex-col items-center">
           <Link href={"/"}>
             <div className="pb-3 flex flex-row items-center w-full text-xs font-mono border-dashed transition-transform transform hover:scale-110 hover:text-white pt-4">
