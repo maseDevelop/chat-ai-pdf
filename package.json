@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "update-db": "npx drizzle-kit push:pg",
+    "update-db-schema": "npx drizzle-kit push:pg",
     "drizzle-studio": "npx drizzle-kit studio"
   },
   "dependencies": {
@@ -53,7 +53,8 @@
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-gradients": "^3.0.0",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "uuid4": "^2.0.3"
   },
   "devDependencies": {
     "encoding": "^0.1.13",

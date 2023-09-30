@@ -13,8 +13,7 @@ export async function uploadToS3(
         region: process.env.NEXT_PUBLIC_AWS_REGION,
       });
 
-      const file_key =
-        "uploads/" + Date.now().toString() + file.name.replace(" ", "-");
+      const file_key = `uploads/${uuid4()}}`;
 
       const params = {
         Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
@@ -38,4 +37,7 @@ export async function uploadToS3(
 
 export function getS3URL(file_key: string) {
   return `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${file_key}`;
+}
+function uuid4() {
+  throw new Error("Function not implemented.");
 }
