@@ -9,6 +9,7 @@ import { Message } from "ai";
 import { Input } from "./ui/input";
 import { MessageList } from "./MessageList";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+import { Textarea } from "./ui/textarea";
 
 type ChatComponentProps = { chatId: string };
 
@@ -66,7 +67,7 @@ export function ChatComponent({ chatId }: ChatComponentProps) {
         className="sticky bottom-0 inset-x-0 px-2 py-4 pt-10 bg-white"
       >
         <div className="flex">
-          <Input
+          <Textarea
             value={input}
             onChange={handleInputChange}
             placeholder="Ask a question..."

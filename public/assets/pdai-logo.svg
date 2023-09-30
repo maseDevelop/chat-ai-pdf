@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="264" height="194" class="svgbob"><style>.svgbob line, .svgbob path, .svgbob circle, .svgbob rect, .svgbob polygon {
+    stroke: black;
+    stroke-width: 2;
+    stroke-opacity: 1;
+    fill-opacity: 1;
+    stroke-linecap: round;
+    stroke-linejoin: miter;
+}
+.svgbob text {
+    white-space: pre;
+    fill: black;
+    font-family: Iosevka Fixed, monospace;
+    font-size: 14px;
+}
+.svgbob rect.backdrop {
+    stroke: none;
+    fill: white;
+}
+.svgbob .broken {
+    stroke-dasharray: 8;
+}
+.svgbob .filled {
+    fill: black;
+}
+.svgbob .bg_filled {
+    fill: white;
+    stroke-width: 1;
+}
+.svgbob .nofill {
+    fill: white;
+}
+.svgbob .end_marked_arrow {
+    marker-end: url(#arrow);
+}
+.svgbob .start_marked_arrow {
+    marker-start: url(#arrow);
+}
+.svgbob .end_marked_diamond {
+    marker-end: url(#diamond);
+}
+.svgbob .start_marked_diamond {
+    marker-start: url(#diamond);
+}
+.svgbob .end_marked_circle {
+    marker-end: url(#circle);
+}
+.svgbob .start_marked_circle {
+    marker-start: url(#circle);
+}
+.svgbob .end_marked_open_circle {
+    marker-end: url(#open_circle);
+}
+.svgbob .start_marked_open_circle {
+    marker-start: url(#open_circle);
+}
+.svgbob .end_marked_big_open_circle {
+    marker-end: url(#big_open_circle);
+}
+.svgbob .start_marked_big_open_circle {
+    marker-start: url(#big_open_circle);
+}<!--separator--></style><defs><marker id="arrow" viewBox="-2 -2 8 8" refX="4" refY="2" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><polygon points="0,0 0,4 4,2 0,0"></polygon></marker><marker id="diamond" viewBox="-2 -2 8 8" refX="4" refY="2" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><polygon points="0,2 2,0 4,2 2,4 0,2"></polygon></marker><marker id="circle" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><circle cx="4" cy="4" r="2" class="filled"></circle></marker><marker id="open_circle" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><circle cx="4" cy="4" r="2" class="bg_filled"></circle></marker><marker id="big_open_circle" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><circle cx="4" cy="4" r="3" class="bg_filled"></circle></marker></defs><rect class="backdrop" x="0" y="0" width="264" height="208"></rect><text x="170" y="28" >hello</text><line x1="32" y1="64" x2="128" y2="64" class="solid"></line><text x="106" y="108" >`</text><line x1="152" y1="112" x2="160" y2="112" class="solid"></line><g><path d="M 16,8 A 4,4 0,0,0 12,12" class="nofill"></path><line x1="12" y1="12" x2="12" y2="180" class="solid"></line><line x1="16" y1="8" x2="128" y2="8" class="solid"></line><path d="M 12,180 A 4,4 0,0,0 16,184" class="nofill"></path><line x1="16" y1="184" x2="248" y2="184" class="solid"></line><line x1="240" y1="8" x2="248" y2="8" class="solid"></line><path d="M 248,8 A 4,4 0,0,1 252,12" class="nofill"></path><line x1="252" y1="12" x2="252" y2="180" class="solid"></line><path d="M 252,180 A 4,4 0,0,1 248,184" class="nofill"></path></g><g><path d="M 136,8 A 8,8 0,0,0 130,12" class="nofill"></path><line x1="130" y1="12" x2="128" y2="16" class="solid"></line><line x1="136" y1="8" x2="232" y2="8" class="solid"></line><path d="M 232,8 A 8,8 0,0,1 238,12" class="nofill"></path><line x1="238" y1="12" x2="240" y2="16" class="solid"></line><path d="M 128,16 A 16,16 0,0,0 128,32" class="nofill"></path><path d="M 240,16 A 16,16 0,0,1 240,32" class="nofill"></path><line x1="128" y1="32" x2="130" y2="36" class="solid"></line><path d="M 130,36 A 8,8 0,0,0 136,40" class="nofill"></path><line x1="136" y1="40" x2="188" y2="40" class="solid"></line><line x1="188" y1="40" x2="188" y2="68" class="solid"></line><line x1="240" y1="32" x2="238" y2="36" class="solid"></line><path d="M 208,40 A 8,8 0,0,0 202,44" class="nofill"></path><line x1="202" y1="44" x2="192" y2="64" class="solid"></line><line x1="208" y1="40" x2="232" y2="40" class="solid"></line><path d="M 238,36 A 8,8 0,0,1 232,40" class="nofill"></path></g><g><line x1="36" y1="80" x2="72" y2="80" class="solid"></line><line x1="36" y1="80" x2="36" y2="144" class="solid"></line><line x1="72" y1="80" x2="80" y2="96" class="solid"></line><line x1="36" y1="144" x2="52" y2="144" class="solid"></line><line x1="108" y1="80" x2="124" y2="80" class="solid"></line><line x1="124" y1="80" x2="124" y2="128" class="solid"></line><line x1="88" y1="96" x2="108" y2="96" class="solid"></line><line x1="108" y1="80" x2="108" y2="96" class="solid"></line><line x1="88" y1="96" x2="72" y2="128" class="solid"></line><line x1="52" y1="128" x2="72" y2="128" class="solid"></line><line x1="52" y1="128" x2="52" y2="144" class="solid"></line></g><g><line x1="152" y1="80" x2="160" y2="80" class="solid"></line><line x1="152" y1="80" x2="120" y2="144" class="solid"></line><line x1="160" y1="80" x2="192" y2="144" class="solid"></line><line x1="144" y1="128" x2="168" y2="128" class="solid"></line><line x1="168" y1="128" x2="176" y2="144" class="solid"></line><line x1="176" y1="144" x2="220" y2="144" class="solid"></line><line x1="220" y1="128" x2="220" y2="144" class="solid"></line><line x1="80" y1="128" x2="88" y2="144" class="solid"></line><line x1="88" y1="144" x2="136" y2="144" class="solid"></line><line x1="144" y1="128" x2="136" y2="144" class="solid"></line></g><g><line x1="188" y1="80" x2="220" y2="80" class="solid"></line><line x1="188" y1="80" x2="188" y2="96" class="solid"></line><line x1="188" y1="96" x2="200" y2="96" class="solid"></line><line x1="196" y1="96" x2="196" y2="128" class="solid"></line><line x1="208" y1="96" x2="220" y2="96" class="solid"></line><line x1="220" y1="80" x2="220" y2="96" class="solid"></line><line x1="212" y1="96" x2="212" y2="128" class="solid"></line></g><g><line x1="52" y1="96" x2="64" y2="96" class="solid"></line><line x1="52" y1="96" x2="52" y2="112" class="solid"></line><line x1="52" y1="112" x2="64" y2="112" class="solid"></line><path d="M 64,96 A 16,16 0,0,1 64,112" class="nofill"></path></g><g><line x1="96" y1="112" x2="108" y2="112" class="solid"></line><path d="M 96,112 A 16,16 0,0,0 96,128" class="nofill"></path><line x1="96" y1="128" x2="108" y2="128" class="solid"></line><line x1="108" y1="112" x2="108" y2="128" class="solid"></line></g></svg>
