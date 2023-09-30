@@ -25,7 +25,7 @@ export type DrizzleChat = typeof chats.$inferSelect;
 
 export const messages = pgTable("messages", {
   id: uuid("uuid4").defaultRandom().primaryKey(),
-  chatId: integer("chat_id")
+  chatId: uuid("uuid4")
     .references(() => chats.id)
     .notNull(),
   content: text("content").notNull(),

@@ -19,7 +19,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-import { TooltipArrow } from "@radix-ui/react-tooltip";
 import React from "react";
 
 type ChatSideBarProps = {
