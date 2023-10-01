@@ -1,6 +1,6 @@
 The s3 bucket used was public and should set up like this in production!
 
-Here is an example of the bucket policy - I used for **development/testing!**
+Here is an example of the bucket policy - I used for **development/testing!** (not recommended for production)
 
 ```bash
 {
