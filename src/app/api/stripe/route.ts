@@ -16,10 +16,13 @@ export async function GET() {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    console.log();
+
     const _userSubscriptions = await db
       .select()
       .from(userSubscriptions)
       .where(eq(userSubscriptions.userId, userId));
+
     if (_userSubscriptions[0] && _userSubscriptions[0].stripeCustomerId) {
       // Trying to cancel at the billing portal
       const stripeSession = await stripe.billingPortal.sessions.create({

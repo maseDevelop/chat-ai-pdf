@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { ClerkLoading, UserButton, auth } from "@clerk/nextjs";
 import Link from "next/link";
-import { Loader2, LogInIcon } from "lucide-react";
+import { ArrowRight, Loader2, LogInIcon } from "lucide-react";
 import { FileUpload } from "@/components/FileUpload";
 import Image from "next/image";
 import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { checkSubscription } from "@/lib/subscription";
+import SubscriptionButton from "@/components/SubscriptionButton";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -20,6 +22,8 @@ export default async function Home() {
       firstChat = firstChat[0];
     }
   }
+
+  const isPro = await checkSubscription();
 
   return (
     <div className="w-screen min-h-screen bg-gradient-to-r from-primary via-secondary to-accent">
@@ -43,9 +47,15 @@ export default async function Home() {
           </div>
           <div className="flex mt-8">
             {isAuth && firstChat && (
-              <Link href={`chat/${firstChat.id}`}>
-                <Button>Go to Chats</Button>
-              </Link>
+              <>
+                <Link className="mr-6" href={`chat/${firstChat.id}`}>
+                  <Button>
+                    Go to Chats
+                    <ArrowRight className="ml-2" />
+                  </Button>
+                </Link>
+                <SubscriptionButton animate isPro={isPro} />
+              </>
             )}
           </div>
           <p className="mt-4 font-mono text-lg max-w-xl">
@@ -53,8 +63,8 @@ export default async function Home() {
             interact with your PDF data
           </p>
           <p className="font-mono mt-3 ">
-            Millions of finance Professionals are already using this to
-            understand financial reports and data
+            Actually interact with your PDF data, ask questions and get real
+            time summirizations
           </p>
           <div className="mt-3 w-full ">
             {isAuth ? (

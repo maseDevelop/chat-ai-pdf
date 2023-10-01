@@ -20,13 +20,15 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import React from "react";
+import SubscriptionButton from "./SubscriptionButton";
 
 type ChatSideBarProps = {
   chats: DrizzleChat[];
   chatId: string;
+  isPro: boolean;
 };
 
-export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
+export function ChatSideBar({ chats, chatId, isPro }: ChatSideBarProps) {
   const [isChatSidebarVisible, setIsChatSidebarVisible] = React.useState(true);
   const { user } = useUser();
   return isChatSidebarVisible ? (
@@ -81,17 +83,11 @@ export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
           ))}
         </div>
       </div>
-      <div
-        id="footer"
-        className="border-t gap-4 mt-auto mr-4 bg-gray-900 h-35 "
-      >
+      <div className="border-t gap-4 mt-auto mr-4 bg-gray-900 h-35 ">
         <div className="flex flex-col items-center">
-          <Link href={"/"}>
-            <div className="pb-3 flex flex-row items-center w-full text-xs font-mono border-dashed transition-transform transform hover:scale-110 hover:text-white pt-4">
-              <User2 className="mr-2 w-4 h-4" />
-              Upgrade to plus
-            </div>
-          </Link>
+          <div className="pb-2 pt-6">
+            <SubscriptionButton isPro={isPro} disabled={false} />
+          </div>
           <div className="flex flex-row items-center mb-5 ">
             <UserButton afterSignOutUrl="/" />{" "}
             {/* Include the UserButton component here */}
@@ -120,8 +116,11 @@ export function ChatSideBar({ chats, chatId }: ChatSideBarProps) {
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <div className="mt-2">
-        <UserButton afterSignOutUrl="/" />{" "}
+      <div className="mt-auto">
+        <SubscriptionButton iconOnly isPro={isPro} />
+        <div className="pt-4">
+          <UserButton afterSignOutUrl="/" />{" "}
+        </div>
       </div>
     </div>
   );
