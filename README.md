@@ -43,9 +43,4 @@ Run the development server:
 npm run dev
 ```
 
-## Screenshots
-
-<img src="./images/landing-page.png" alt="landing" width="1200" height="1000" />
-<img src="./images/main-page.png" alt="main" width="1200" height="1000" />
-<img src="./images/chat-with-sidebar.png" alt="chat-with-sidebar" width="1200" height="1000" />
-<img src="./images/chat.png" alt="chat" width="1200" height="1000" />
+Check out screenshots [here!](./images/)
